@@ -30,6 +30,15 @@ namespace ImageConverterWebAPI.Controllers.v1._0
             destinationPath = Path.Combine(directoryInfo.FullName, @"Database\ConvertedPictures", guid);
         }
 
+        /// <summary>
+        /// Converts an image to JPG format
+        /// </summary>
+        /// <returns>A file</returns>
+        /// <response code="400">The request from the client could not be understood due to missing parameters/bad syntax</response>
+        /// <response code="500">An internal server error occured</response>
+        /// <response code="200">The image was successfully converted to JPG format</response>
+        /// <remarks>You should include the image that you want to convert to JPG</remarks>
+
         [Route("ToJPG")]
         [HttpPost]
         public IHttpActionResult ToJPG()
@@ -43,7 +52,6 @@ namespace ImageConverterWebAPI.Controllers.v1._0
             SetSourceAndDestionationPath(out sourcePath, out destinationPath, out httpPostedFile);
             SaveImageFromInput(sourcePath, ref httpPostedFile);
             destinationPath += ".jpg";
-
             try
             {
                 ImageContext imageContext = new ImageContext(sourcePath, destinationPath, "ConvertToJPG");
@@ -79,6 +87,15 @@ namespace ImageConverterWebAPI.Controllers.v1._0
                 return new CustomHttpActionResult(Request, HttpStatusCode.BadRequest, pathTooLongException.Message);
             }
         }
+
+        /// <summary>
+        /// Converts an image to PNG format
+        /// </summary>
+        /// <returns>A file</returns>
+        /// <response code="400">The request from the client could not be understood due to missing parameters/bad syntax</response>
+        /// <response code="500">An internal server error occured</response>
+        /// <response code="200">The image was successfully converted to PNG format</response>
+        /// <remarks>You should include the image that you want to convert to PNG</remarks>
 
         [Route("ToPNG")]
         [HttpPost]
@@ -130,6 +147,14 @@ namespace ImageConverterWebAPI.Controllers.v1._0
             }
         }
 
+        /// <summary>
+        /// Converts an image to GIF format
+        /// </summary>
+        /// <returns>A file</returns>
+        /// <response code="400">The request from the client could not be understood due to missing parameters/bad syntax</response>
+        /// <response code="500">An internal server error occured</response>
+        /// <response code="200">The image was successfully converted to GIF format</response>
+        /// <remarks>You should include the image that you want to convert to GIF</remarks>
         [Route("ToGIF")]
         [HttpPost]
         public IHttpActionResult ToGIF()

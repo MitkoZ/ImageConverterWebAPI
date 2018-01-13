@@ -28,6 +28,26 @@ namespace ImageConverterWebAPI.Controllers.v1._0
             destinationPath = Path.Combine(directoryInfo.FullName, @"Database\ConvertedPictures", guidAndExtension);
         }
 
+        /// <summary>
+        /// Crops the image and returns
+        /// </summary>
+        /// <param name="cropBindModel">
+        /// X starting coordinate of the image cropping
+        /// Y starting coordinate of the image cropping
+        /// The cropped Width of the image (this will be the width of the new image)
+        /// The cropped Height of the image (this will be the width of the new image)
+        /// </param>
+        /// <returns>The cropped part (File)</returns>
+        /// <remarks>
+        /// Example input:
+        /// X:3
+        /// Y:5
+        /// Width:500
+        /// Height:400
+        /// </remarks>
+        /// <response code="400">The request from the client could not be understood due to missing parameters/bad syntax</response>
+        /// <response code="500">An internal server error occured</response>
+        /// <response code="200">The image was successfully cropped</response>
         [Route("Crop")]
         [HttpPost]
         public IHttpActionResult Crop([FromUri]CropBindModel cropBindModel)
@@ -88,6 +108,22 @@ namespace ImageConverterWebAPI.Controllers.v1._0
             }
         }
 
+        /// <summary>
+        /// Resizes an image keeping the proportions of the given image
+        /// </summary>
+        /// <param name="keepAspectBindModel">
+        /// Width: New wanted width
+        /// Height: New wanted height
+        /// </param>
+        /// <returns>The resized image (File)</returns>
+        /// <remarks>
+        /// Example input:
+        /// Width:400
+        /// Height:700
+        /// </remarks>
+        /// <response code="400">The request from the client could not be understood due to missing parameters/bad syntax</response>
+        /// <response code="500">An internal server error occured</response>
+        /// <response code="200">The image was successfully resized</response>
         [Route("KeepAspect")]
         [HttpPost]
         public IHttpActionResult KeepAspect([FromUri]KeepAspectBindModel keepAspectBindModel)
@@ -144,6 +180,23 @@ namespace ImageConverterWebAPI.Controllers.v1._0
             }
         }
 
+
+        /// <summary>
+        /// Resizes an image without keeping the proportions of the given image
+        /// </summary>
+        /// <param name="skewBindModel">
+        /// Width: New wanted width
+        /// Height: New wanted height
+        /// </param>
+        /// <returns>The resized image (File)</returns>
+        /// <remarks>
+        /// Example input:
+        /// Width:600
+        /// Height:300
+        /// </remarks>
+        /// <response code="400">The request from the client could not be understood due to missing parameters/bad syntax</response>
+        /// <response code="500">An internal server error occured</response>
+        /// <response code="200">The image was successfully resized</response>
         [Route("Skew")]
         [HttpPost]
         public IHttpActionResult Skew([FromUri]SkewBindModel skewBindModel)
